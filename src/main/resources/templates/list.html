@@ -11,7 +11,16 @@
 <!-- script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<title>Rakus Items</title>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$(function() {
+	var availableTags = [ [(${itemListForAutocomplete})] ];
+	$( "#searchItemName" ).autocomplete({
+    source: availableTags
+  });
+});
+</script>
+<title>ラクカリ</title>
 </head>
 <body>
 <!-- navbar -->
@@ -22,7 +31,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="./list.html">Rakus Items</a>
+			<a class="navbar-brand" href="./list.html" th:href="@{/item/showList}">rakcari</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<div>
@@ -37,14 +46,15 @@
 	</nav>
 	<div id="main" class="container-fluid">
 <!-- addItem link -->
-		<div id="addItemButton">
+		<div id="addItemButton" align="right">
 			<a class="btn btn-default" href="./add.html"><i class="fa fa-plus-square-o"></i> Add New Item</a>
 		</div>
+		<br>
 <!-- 検索フォーム -->
-		<div id="forms">
-			<form action="" class="form-inline" role="form">
+		<div id="forms" align="center">
+			<form method="post" th:action="@{/item/showList}" class="form-inline" role="form" th:object="${displayItemListForm}">
 				<div class="form-group">
-					<input type="input" class="form-control" id="name" placeholder="item name" />
+					<input type="search" name="searchItemName" placeholder="何かお探しですか？" id="name" class="form-control" th:field="*{searchItemName}"/>
 				</div>
 				<div class="form-group">
 					<i class="fa fa-plus"></i>
@@ -57,14 +67,16 @@
 						<option>parentCategory3</option>
 						<option>parentCategory4</option>
 						<option>parentCategory5</option>
-					</select> <select class="form-control">
+					</select>
+					<select class="form-control">
 						<option>- childCategory -</option>
 						<option>childCategory1</option>
 						<option>childCategory2</option>
 						<option>childCategory3</option>
 						<option>childCategory4</option>
 						<option>childCategory5</option>
-					</select> <select class="form-control">
+					</select>
+					<select class="form-control">
 						<option>- grandChild -</option>
 						<option>grandChild1</option>
 						<option>grandChild2</option>
@@ -77,7 +89,7 @@
 					<i class="fa fa-plus"></i>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="brand" />
+					<input type="text" class="form-control" placeholder="ブランド名" th:field="*{brand}"/>
 				</div>
 				<div class="form-group"></div>
 				<button type="submit" class="btn btn-default">
@@ -89,8 +101,8 @@
 		<div class="pages">
 			<nav class="page-nav">
 				<ul class="pager">
-					<li class="previous"><a href="#">&larr; prev</a></li>
-					<li class="next"><a href="#">next &rarr;</a></li>
+					<li class="previous"><a href="#" th:if="${offsetValue >= VIEW_SIZE}" th:href="@{/item/showList(pageNumber=${pageNumber - CHANGE_PAGE}, searchItemName=${searchItemName})}">&larr; prev</a></li>
+					<li class="next"><a href="#" th:if="${offsetValue <= quantityOfItemList - VIEW_SIZE}" th:href="@{/item/showList(pageNumber=${pageNumber + CHANGE_PAGE}, searchItemName=${searchItemName})}">next &rarr;</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -107,215 +119,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Razer BlackWidow Chroma Keyboard</a></td>
-						<td class="item-price">52.0</td>
-						<td class="item-category"><a href="">Electronics</a> / <a href="">Computers &amp; Tablets</a> / <a href="">Components &amp; Parts</a></td>
-						<td class="item-brand"><a href="">Razer</a></td>
-						<td class="item-condition">3</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">AVA-VIV Blouse</a></td>
-						<td class="item-price">10.0</td>
-						<td class="item-category">Women / Tops &amp; Blouses / Blouse</td>
-						<td class="item-brand">Target</td>
-						<td class="item-condition">1</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Leather Horse Statues</a></td>
-						<td class="item-price">35.0</td>
-						<td class="item-category">Home / Home Décor / Home Décor Accents</td>
-						<td class="item-brand"></td>
-						<td class="item-condition">1</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">24K GOLD plated rose</a></td>
-						<td class="item-price">44.0</td>
-						<td class="item-category">Women / Jewelry / Necklaces</td>
-						<td class="item-brand"></td>
-						<td class="item-condition">1</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Bundled items requested for Ruie</a></td>
-						<td class="item-price">59.0</td>
-						<td class="item-category">Women / Other / Other</td>
-						<td class="item-brand"></td>
-						<td class="item-condition">3</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Acacia pacific tides santorini top</a></td>
-						<td class="item-price">64.0</td>
-						<td class="item-category">Women / Swimwear / Two-Piece</td>
-						<td class="item-brand">Acacia Swimwear</td>
-						<td class="item-condition">3</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Girls cheer and tumbling bundle of 7</a></td>
-						<td class="item-price">6.0</td>
-						<td class="item-category">Sports &amp; Outdoors / Apparel / Girls</td>
-						<td class="item-brand">Soffe</td>
-						<td class="item-condition">3</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Girls Nike Pro shorts</a></td>
-						<td class="item-price">19.0</td>
-						<td class="item-category">Sports &amp; Outdoors / Apparel / Girls</td>
-						<td class="item-brand">Nike</td>
-						<td class="item-condition">3</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Porcelain clown doll checker pants VTG</a></td>
-						<td class="item-price">8.0</td>
-						<td class="item-category">Vintage &amp; Collectibles / Collectibles / Doll</td>
-						<td class="item-brand"></td>
-						<td class="item-condition">3</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Smashbox primer</a></td>
-						<td class="item-price">8.0</td>
-						<td class="item-category">Beauty / Makeup / Face</td>
-						<td class="item-brand">Smashbox</td>
-						<td class="item-condition">2</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Razer BlackWidow Chroma Keyboard</a></td>
-						<td class="item-price">52.0</td>
-						<td class="item-category">Electronics / Computers &amp; Tablets / Components &amp; Parts</td>
-						<td class="item-brand">Razer</td>
-						<td class="item-condition">3</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">AVA-VIV Blouse</a></td>
-						<td class="item-price">10.0</td>
-						<td class="item-category">Women / Tops &amp; Blouses / Blouse</td>
-						<td class="item-brand">Target</td>
-						<td class="item-condition">1</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Leather Horse Statues</a></td>
-						<td class="item-price">35.0</td>
-						<td class="item-category">Home / Home Décor / Home Décor Accents</td>
-						<td class="item-brand"></td>
-						<td class="item-condition">1</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">24K GOLD plated rose</a></td>
-						<td class="item-price">44.0</td>
-						<td class="item-category">Women / Jewelry / Necklaces</td>
-						<td class="item-brand"></td>
-						<td class="item-condition">1</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Bundled items requested for Ruie</a></td>
-						<td class="item-price">59.0</td>
-						<td class="item-category">Women / Other / Other</td>
-						<td class="item-brand"></td>
-						<td class="item-condition">3</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Acacia pacific tides santorini top</a></td>
-						<td class="item-price">64.0</td>
-						<td class="item-category">Women / Swimwear / Two-Piece</td>
-						<td class="item-brand">Acacia Swimwear</td>
-						<td class="item-condition">3</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Girls cheer and tumbling bundle of 7</a></td>
-						<td class="item-price">6.0</td>
-						<td class="item-category">Sports &amp; Outdoors / Apparel / Girls</td>
-						<td class="item-brand">Soffe</td>
-						<td class="item-condition">3</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Girls Nike Pro shorts</a></td>
-						<td class="item-price">19.0</td>
-						<td class="item-category">Sports &amp; Outdoors / Apparel / Girls</td>
-						<td class="item-brand">Nike</td>
-						<td class="item-condition">3</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Porcelain clown doll checker pants VTG</a></td>
-						<td class="item-price">8.0</td>
-						<td class="item-category">Vintage &amp; Collectibles / Collectibles / Doll</td>
-						<td class="item-brand"></td>
-						<td class="item-condition">3</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Smashbox primer</a></td>
-						<td class="item-price">8.0</td>
-						<td class="item-category">Beauty / Makeup / Face</td>
-						<td class="item-brand">Smashbox</td>
-						<td class="item-condition">2</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Razer BlackWidow Chroma Keyboard</a></td>
-						<td class="item-price">52.0</td>
-						<td class="item-category">Electronics / Computers &amp; Tablets / Components &amp; Parts</td>
-						<td class="item-brand">Razer</td>
-						<td class="item-condition">3</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">AVA-VIV Blouse</a></td>
-						<td class="item-price">10.0</td>
-						<td class="item-category">Women / Tops &amp; Blouses / Blouse</td>
-						<td class="item-brand">Target</td>
-						<td class="item-condition">1</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Leather Horse Statues</a></td>
-						<td class="item-price">35.0</td>
-						<td class="item-category">Home / Home Décor / Home Décor Accents</td>
-						<td class="item-brand"></td>
-						<td class="item-condition">1</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">24K GOLD plated rose</a></td>
-						<td class="item-price">44.0</td>
-						<td class="item-category">Women / Jewelry / Necklaces</td>
-						<td class="item-brand"></td>
-						<td class="item-condition">1</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Bundled items requested for Ruie</a></td>
-						<td class="item-price">59.0</td>
-						<td class="item-category">Women / Other / Other</td>
-						<td class="item-brand"></td>
-						<td class="item-condition">3</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Acacia pacific tides santorini top</a></td>
-						<td class="item-price">64.0</td>
-						<td class="item-category">Women / Swimwear / Two-Piece</td>
-						<td class="item-brand">Acacia Swimwear</td>
-						<td class="item-condition">3</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Girls cheer and tumbling bundle of 7</a></td>
-						<td class="item-price">6.0</td>
-						<td class="item-category">Sports &amp; Outdoors / Apparel / Girls</td>
-						<td class="item-brand">Soffe</td>
-						<td class="item-condition">3</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Girls Nike Pro shorts</a></td>
-						<td class="item-price">19.0</td>
-						<td class="item-category">Sports &amp; Outdoors / Apparel / Girls</td>
-						<td class="item-brand">Nike</td>
-						<td class="item-condition">3</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Porcelain clown doll checker pants VTG</a></td>
-						<td class="item-price">8.0</td>
-						<td class="item-category">Vintage &amp; Collectibles / Collectibles / Doll</td>
-						<td class="item-brand"></td>
-						<td class="item-condition">3</td>
-					</tr>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Smashbox primer</a></td>
-						<td class="item-price">8.0</td>
-						<td class="item-category">Beauty / Makeup / Face</td>
-						<td class="item-brand">Smashbox</td>
-						<td class="item-condition">2</td>
+					<tr th:each="item : ${itemList}">
+						<td class="item-name" th:text="${item.name}"><a href="./detail.html" th:href="@{'/item/showDetail?id=' + ${item.id}}">Razer BlackWidow Chroma Keyboard</a></td>
+						<td class="item-price" th:text="${item.price}">52.0</td>
+						<td class="item-category" th:text="${item.category.nameAll}"><a href="">Electronics</a> / <a href="">Computers &amp; Tablets</a> / <a href="">Components &amp; Parts</a></td>
+						<td class="item-brand" th:text="${item.brandName}"><a href="">Razer</a></td>
+						<td class="item-condition" th:text="${item.itemConditionId}">3</td>
 					</tr>
 				</tbody>
 			</table>
@@ -324,18 +133,18 @@
 		<div class="pages">
 			<nav class="page-nav">
 				<ul class="pager">
-					<li class="previous"><a href="#">&larr; prev</a></li>
-					<li class="next"><a href="#">next &rarr;</a></li>
+					<li class="previous"><a href="#" th:if="${offsetValue >= VIEW_SIZE}" th:href="@{/item/showList(pageNumber=${pageNumber - CHANGE_PAGE}, searchItemName=${searchItemName})}">&larr; prev</a></li>
+					<li class="next"><a href="#" th:if="${offsetValue <= quantityOfItemList - VIEW_SIZE}" th:href="@{/item/showList(pageNumber=${pageNumber + CHANGE_PAGE}, searchItemName=${searchItemName})}">next &rarr;</a></li>
 				</ul>
 			</nav>
 <!-- ページ番号を指定して表示するフォーム -->
 			<div id="select-page">
-				<form class="form-inline">
+				<form method="post" th:action="@{/item/showList(searchItemName=${searchItemName})}" class="form-inline" th:object="${displayItemListForm}">
 					<div class="form-group">
 						<div class="input-group col-xs-6">
-							<label></label> <input type="text" class="form-control" />
+							<label></label> <input type="text" class="form-control" name="pageNumber" th:field="*{pageNumber}"/>
 <!-- 総ページ数 -->
-							<div class="input-group-addon">/ 20</div>
+							<div class="input-group-addon" th:text="'/ ' + ${quantityOfItemList / VIEW_SIZE}">/ 20</div>
 						</div>
 						<div class="input-group col-xs-1">
 							<button type="submit" class="btn btn-default">Go</button>
