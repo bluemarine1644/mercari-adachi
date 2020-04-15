@@ -19,7 +19,6 @@ import com.example.demo.service.DisplayItemListService;
  *
  */
 @Controller
-@RequestMapping("/item")
 public class DisplayItemListController {
 	@Autowired
 	private DisplayItemListService displayItemListService;
@@ -38,7 +37,7 @@ public class DisplayItemListController {
 		return new DisplayItemListForm();
 	}
 
-	@RequestMapping("/showList")
+	@RequestMapping("/")
 	public String showList(DisplayItemListForm form, Model model, String searchItemName, Integer pageNumber) {
 		model.addAttribute("VIEW_SIZE", VIEW_SIZE);
 		model.addAttribute("CHANGE_PAGE", CHANGE_PAGE);
