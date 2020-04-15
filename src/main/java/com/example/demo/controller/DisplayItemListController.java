@@ -60,7 +60,6 @@ public class DisplayItemListController {
 		 // 検索文字列があれば曖昧検索
 		List<Item> itemList = displayItemListService.serchByItemName(searchItemName, VIEW_SIZE, offsetValue);
 		model.addAttribute("itemList", itemList);
-		System.out.println("model→ " + model);
 		return "list";
 	}
 }
