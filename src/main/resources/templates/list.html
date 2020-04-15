@@ -7,7 +7,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
-<link rel="stylesheet" href="./mercari.css" />
+<link rel="stylesheet" href="./mercari.css"/>
 <!-- script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -22,7 +22,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="./list.html" th:href="@{/item/showList}">rakcari</a>
+			<a class="navbar-brand" href="./list.html" th:href="@{/}">rakcari</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<div>
@@ -43,7 +43,7 @@
 		<br>
 <!-- 検索フォーム -->
 		<div id="forms" align="center">
-			<form method="post" th:action="@{/item/showList}" class="form-inline" role="form" th:object="${displayItemListForm}">
+			<form method="post" th:action="@{/}" class="form-inline" role="form" th:object="${displayItemListForm}">
 				<div class="form-group">
 					<input type="search" name="searchItemName" placeholder="何かお探しですか？" id="name" class="form-control" th:field="*{searchItemName}"/>
 				</div>
@@ -92,8 +92,8 @@
 		<div class="pages">
 			<nav class="page-nav">
 				<ul class="pager">
-					<li class="previous"><a href="#" th:if="${offsetValue >= VIEW_SIZE}" th:href="@{/item/showList(pageNumber=${pageNumber - CHANGE_PAGE}, searchItemName=${searchItemName})}">&larr; prev</a></li>
-					<li class="next"><a href="#" th:if="${offsetValue <= quantityOfItemList - VIEW_SIZE}" th:href="@{/item/showList(pageNumber=${pageNumber + CHANGE_PAGE}, searchItemName=${searchItemName})}">next &rarr;</a></li>
+					<li class="previous"><a href="#" th:if="${offsetValue >= VIEW_SIZE}" th:href="@{/(pageNumber=${pageNumber - CHANGE_PAGE}, searchItemName=${searchItemName})}">&larr; prev</a></li>
+					<li class="next"><a href="#" th:if="${offsetValue <= quantityOfItemList - VIEW_SIZE}" th:href="@{/(pageNumber=${pageNumber + CHANGE_PAGE}, searchItemName=${searchItemName})}">next &rarr;</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -111,10 +111,10 @@
 				</thead>
 				<tbody>
 					<tr th:each="item : ${itemList}">
-						<td class="item-name" th:text="${item.name}"><a href="./detail.html" th:href="@{'/item/showDetail?id=' + ${item.id}}">Razer BlackWidow Chroma Keyboard</a></td>
+						<td class="item-name"><a th:text="${item.name}" href="./detail.html" th:href="@{'/showItemDetail?id=' + ${item.id}}">Razer BlackWidow Chroma Keyboard</a></td>
 						<td class="item-price" th:text="${item.price}">52.0</td>
-						<td class="item-category" th:text="${item.category.nameAll}"><a href="">Electronics</a> / <a href="">Computers &amp; Tablets</a> / <a href="">Components &amp; Parts</a></td>
-						<td class="item-brand" th:text="${item.brandName}"><a href="">Razer</a></td>
+						<td class="item-category"><a th:text="${item.category.nameAll}" href="">Electronics</a> / <a href="">Computers &amp; Tablets</a> / <a href="">Components &amp; Parts</a></td>
+						<td class="item-brand"><a th:text="${item.brandName}" href="">Razer</a></td>
 						<td class="item-condition" th:text="${item.itemConditionId}">3</td>
 					</tr>
 				</tbody>
@@ -124,13 +124,13 @@
 		<div class="pages">
 			<nav class="page-nav">
 				<ul class="pager">
-					<li class="previous"><a href="#" th:if="${offsetValue >= VIEW_SIZE}" th:href="@{/item/showList(pageNumber=${pageNumber - CHANGE_PAGE}, searchItemName=${searchItemName})}">&larr; prev</a></li>
-					<li class="next"><a href="#" th:if="${offsetValue <= quantityOfItemList - VIEW_SIZE}" th:href="@{/item/showList(pageNumber=${pageNumber + CHANGE_PAGE}, searchItemName=${searchItemName})}">next &rarr;</a></li>
+					<li class="previous"><a href="#" th:if="${offsetValue >= VIEW_SIZE}" th:href="@{/(pageNumber=${pageNumber - CHANGE_PAGE}, searchItemName=${searchItemName})}">&larr; prev</a></li>
+					<li class="next"><a href="#" th:if="${offsetValue <= quantityOfItemList - VIEW_SIZE}" th:href="@{/(pageNumber=${pageNumber + CHANGE_PAGE}, searchItemName=${searchItemName})}">next &rarr;</a></li>
 				</ul>
 			</nav>
 <!-- ページ番号を指定して表示するフォーム -->
 			<div id="select-page">
-				<form method="post" th:action="@{/item/showList(searchItemName=${searchItemName})}" class="form-inline" th:object="${displayItemListForm}">
+				<form method="post" th:action="@{/(searchItemName=${searchItemName})}" class="form-inline" th:object="${displayItemListForm}">
 					<div class="form-group">
 						<div class="input-group col-xs-6">
 							<label></label> <input type="text" class="form-control" name="pageNumber" th:field="*{pageNumber}"/>

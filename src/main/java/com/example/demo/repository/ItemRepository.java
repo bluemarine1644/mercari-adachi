@@ -40,7 +40,9 @@ public class ItemRepository {
 		item.setItemDescription(rs.getString("item_description"));
 		return item;
 	};
-
+	
+	public static final String SQL = "SELECT i.id item_id, i.name item_name, i.item_condition_id, i.category_id, c.name category_name, c.parent_id, c.name_all, i.brand_name, i.price, i.shipping, i.item_description FROM items i FULL OUTER JOIN category c ON i.category_id = c.id";
+	
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 
@@ -53,9 +55,9 @@ public class ItemRepository {
 	 * @return 検索された商品情報
 	 */
 	public List<Item> searchByItemName(String searchItemName, Integer VIEW_SIZE, Integer offsetValue) {
-		String sql = "SELECT i.id item_id, i.name item_name, i.item_condition_id, i.category_id, c.name category_name, c.parent_id, c.name_all, i.brand_name, i.price, i.shipping, i.item_description FROM items i FULL OUTER JOIN category c ON i.category_id = c.id WHERE i.name LIKE :searchItemName ORDER BY i.name LIMIT :VIEW_SIZE OFFSET :offsetValue";
+		String searchByItemNameSql = " WHERE i.name LIKE :searchItemName ORDER BY i.name LIMIT :VIEW_SIZE OFFSET :offsetValue";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("searchItemName", "%" + searchItemName + "%").addValue("VIEW_SIZE", VIEW_SIZE).addValue("offsetValue", offsetValue);
-		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
+		List<Item> itemList = template.query(SQL + searchByItemNameSql, param, ITEM_ROW_MAPPER);
 		return itemList;
 	}
 
@@ -66,9 +68,22 @@ public class ItemRepository {
 	 * @return 商品数
 	 */
 	public Integer quantityOfItemList(String searchItemName) {
-		String sql = "SELECT COUNT(id) FROM items WHERE name LIKE :searchItemName";
+		String quantityOfItemListSql = "SELECT COUNT(id) FROM items WHERE name LIKE :searchItemName";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("searchItemName", "%" + searchItemName + "%");
-		Integer quantityOfItemList = template.queryForObject(sql, param, Integer.class);
+		Integer quantityOfItemList = template.queryForObject(quantityOfItemListSql, param, Integer.class);
 		return quantityOfItemList;
+	}
+	
+	/**
+	 * 商品IDから商品詳細情報を取得します.
+	 * 
+	 * @param id 商品ID
+	 * @return 商品詳細情報
+	 */
+	public Item findById(Integer id) {
+		String findByIdSql = " WHERE i.id = :id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		Item itemDetail = template.queryForObject(SQL + findByIdSql, param, ITEM_ROW_MAPPER);
+		return itemDetail;
 	}
 }

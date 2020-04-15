@@ -11,7 +11,7 @@
 <!-- script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<title>Rakus Items</title>
+<title>ラクカリ</title>
 </head>
 <body>
 <!-- navbar -->
@@ -22,7 +22,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="./list.html">Rakus Items</a>
+			<a class="navbar-brand" href="./list.html"  th:href="@{/item/showList}">rakcari</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<div>
@@ -44,32 +44,32 @@
 				<tbody>
 					<tr>
 						<th>ID</th>
-						<td>1</td>
+						<td th:text="${itemDetail.id}">1</td>
 					</tr>
 					<tr>
 						<th>name</th>
-						<td>Razer BlackWidow Chroma Keyboard</td>
+						<td th:text="${itemDetail.name}">Razer BlackWidow Chroma Keyboard</td>
 					</tr>
 					<tr>
 						<th>price</th>
-						<td>$52.0</td>
+						<td th:text="${itemDetail.price}">$52.0</td>
 					</tr>
 					<tr>
 						<th>category</th>
-						<td>Electronics / Computers &amp; Tablets / Components &amp;
+						<td th:text="${itemDetail.category.nameAll}">Electronics / Computers &amp; Tablets / Components &amp;
 							Parts</td>
 					</tr>
 					<tr>
 						<th>brand</th>
-						<td>Razer</td>
+						<td th:text="${itemDetail.brandName}">Razer</td>
 					</tr>
 					<tr>
 						<th>condition</th>
-						<td>3</td>
+						<td th:text="${itemDetail.itemConditionId}">3</td>
 					</tr>
 					<tr>
 						<th>description</th>
-						<td>I realized his pants are on backwards after the picture.
+						<td th:text="${itemDetail.itemDescription}">I realized his pants are on backwards after the picture.
 							They were very dirty so I hand washed them. He has a stuffed body
 							and painted porcelain head, hands and feet. Back before clowns
 							were too scary. 9"" tall. No chips or cracks but minor paint loss
