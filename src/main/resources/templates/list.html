@@ -134,7 +134,7 @@
 				<form method="post" th:action="@{/(searchItemName=${searchItemName}, searchBrandName=${searchBrandName})}" class="form-inline" th:object="${displayItemListForm}" align="center">
 					<div class="form-group">
 						<div class="input-group col-xs-6">
-							<label></label> <input type="search" class="form-control" name="pageNumber" th:field="*{pageNumber}"/>
+							<label></label> <input type="search" placeholder="1" class="form-control" name="pageNumber" th:field="*{pageNumber}"/>
 <!-- 総ページ数 -->
 							<div class="input-group-addon" th:text="'/ ' + ${quantityOfItemList / VIEW_SIZE + CHANGE_PAGE}">/ 20</div>
 						</div>

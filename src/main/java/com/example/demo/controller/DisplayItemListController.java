@@ -39,6 +39,7 @@ public class DisplayItemListController {
 
 	@RequestMapping("/")
 	public String showList(DisplayItemListForm form, Model model, String searchItemName, String searchBrandName, Integer pageNumber) {
+		System.out.println("searchItemName:[" + searchItemName + "]searchBrandName:[" + searchBrandName + "]pageNumber:[" + pageNumber + "]");
 		model.addAttribute("VIEW_SIZE", VIEW_SIZE);
 		model.addAttribute("CHANGE_PAGE", CHANGE_PAGE);
 		// 商品名検索文字列が空なら全件検索
