@@ -27,7 +27,7 @@
 		<div id="navbar" class="collapse navbar-collapse">
 			<div>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a id="logout" href="./login.html">ログアウト <i class="fa fa-power-off"></i></a></li>
+					<li><a id="logout" href="./login.html">ログアウト<i class="fa fa-power-off"></i></a></li>
 				</ul>
 				<p class="navbar-text navbar-right">
 					<span id="loginName">user: userName</span>
@@ -134,9 +134,9 @@
 				<form method="post" th:action="@{/(searchItemName=${searchItemName}, searchBrandName=${searchBrandName})}" class="form-inline" th:object="${displayItemListForm}" align="center">
 					<div class="form-group">
 						<div class="input-group col-xs-6">
-							<label></label> <input type="text" class="form-control" name="pageNumber" th:field="*{pageNumber}"/>
+							<label></label> <input type="search" class="form-control" name="pageNumber" th:field="*{pageNumber}"/>
 <!-- 総ページ数 -->
-							<div class="input-group-addon" th:text="'/ ' + ${quantityOfItemList / VIEW_SIZE}">/ 20</div>
+							<div class="input-group-addon" th:text="'/ ' + ${quantityOfItemList / VIEW_SIZE + CHANGE_PAGE}">/ 20</div>
 						</div>
 						<div class="input-group col-xs-1">
 							<button type="submit" class="btn btn-default">Go</button>

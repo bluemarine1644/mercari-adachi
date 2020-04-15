@@ -59,11 +59,12 @@ public class DisplayItemListController {
 		model.addAttribute("offsetValue", offsetValue);
 		model.addAttribute("pageNumber", pageNumber);
 		// 曖昧検索で検索された商品返す
-		Integer quantityOfItemList = displayItemListService.quantityOfItemList(searchItemName);
+		Integer quantityOfItemList = displayItemListService.quantityOfItemList(searchItemName, searchBrandName);
 		model.addAttribute("quantityOfItemList", quantityOfItemList);
 		 // 検索文字列があれば曖昧検索
 		List<Item> itemList = displayItemListService.serchByItemAndBrandName(searchItemName, searchBrandName, VIEW_SIZE, offsetValue);
 		model.addAttribute("itemList", itemList);
+		System.out.println(model);
 		return "list";
 	}
 }

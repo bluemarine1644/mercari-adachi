@@ -36,10 +36,11 @@ public class DisplayItemListService {
 	/**
 	 * searchByItemNameメソッドで検索された商品数を返します.
 	 * 
-	 * @param searchItemName 商品名
-	 * @return 商品数
+	 * @param searchItemName 検索商品名
+	 * @param searchBrandName 検索ブランド名
+	 * @return
 	 */
-	public Integer quantityOfItemList(String searchItemName) {
-		return itemRepository.quantityOfItemList(searchItemName);
+	public Integer quantityOfItemList(String searchItemName, String searchBrandName) {
+		return itemRepository.quantityOfItemList(searchItemName, searchBrandName);
 	}
 }

@@ -49,9 +49,10 @@ public class ItemRepository {
 	/**
 	 * 商品名から商品を（曖昧）検索します.
 	 * 
-	 * @param searchItemName 商品名
-	 * @param VIEW_SIZE      1ページに表示す商品数
-	 * @param offsetValue    オフセット値
+	 * @param searchItemName  検索商品名
+	 * @param searchBrandName 検索ブランド名
+	 * @param VIEW_SIZE       1ページに表示す商品数
+	 * @param offsetValue     オフセット値
 	 * @return 検索された商品情報
 	 */
 	public List<Item> searchByItemAndBrandName(String searchItemName, String searchBrandName, Integer VIEW_SIZE, Integer offsetValue) {
@@ -64,12 +65,13 @@ public class ItemRepository {
 	/**
 	 * searchByItemNameメソッドで検索された商品数を返します.
 	 * 
-	 * @param searchItemName 商品名
+	 * @param searchItemName  検索商品名
+	 * @param searchBrandName 検索ブランド名
 	 * @return 商品数
 	 */
-	public Integer quantityOfItemList(String searchItemName) {
-		String quantityOfItemListSql = "SELECT COUNT(id) FROM items WHERE name LIKE :searchItemName";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("searchItemName", "%" + searchItemName + "%");
+	public Integer quantityOfItemList(String searchItemName, String searchBrandName) {
+		String quantityOfItemListSql = "SELECT COUNT(id) FROM items WHERE name LIKE :searchItemName AND brand_name LIKE :searchBrandName";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("searchItemName", "%" + searchItemName + "%").addValue("searchBrandName", "%" + searchBrandName + "%");
 		Integer quantityOfItemList = template.queryForObject(quantityOfItemListSql, param, Integer.class);
 		return quantityOfItemList;
 	}
