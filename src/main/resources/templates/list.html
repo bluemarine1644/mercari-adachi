@@ -27,7 +27,7 @@
 		<div id="navbar" class="collapse navbar-collapse">
 			<div>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a id="logout" href="./login.html">Logout <i class="fa fa-power-off"></i></a></li>
+					<li><a id="logout" href="./login.html">ログアウト <i class="fa fa-power-off"></i></a></li>
 				</ul>
 				<p class="navbar-text navbar-right">
 					<span id="loginName">user: userName</span>
@@ -42,17 +42,18 @@
 		</div>
 		<br>
 <!-- 検索フォーム -->
+		<h1 align="center">何かお探しですか？</h1>
 		<div id="forms" align="center">
 			<form method="post" th:action="@{/}" class="form-inline" role="form" th:object="${displayItemListForm}">
 				<div class="form-group">
-					<input type="search" name="searchItemName" placeholder="何かお探しですか？" id="name" class="form-control" th:field="*{searchItemName}"/>
+					<input type="search" name="searchItemName" placeholder="商品名を入力" id="name" class="form-control" th:field="*{searchItemName}"/>
 				</div>
 				<div class="form-group">
 					<i class="fa fa-plus"></i>
 				</div>
 				<div class="form-group">
 					<select class="form-control">
-						<option>- parentCategory -</option>
+						<option>- カテゴリ1 -</option>
 						<option>parentCategory1</option>
 						<option>parentCategory2</option>
 						<option>parentCategory3</option>
@@ -60,7 +61,7 @@
 						<option>parentCategory5</option>
 					</select>
 					<select class="form-control">
-						<option>- childCategory -</option>
+						<option>- カテゴリ2 -</option>
 						<option>childCategory1</option>
 						<option>childCategory2</option>
 						<option>childCategory3</option>
@@ -68,7 +69,7 @@
 						<option>childCategory5</option>
 					</select>
 					<select class="form-control">
-						<option>- grandChild -</option>
+						<option>- カテゴリ3 -</option>
 						<option>grandChild1</option>
 						<option>grandChild2</option>
 						<option>grandChild3</option>
@@ -80,11 +81,11 @@
 					<i class="fa fa-plus"></i>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="ブランド名" th:field="*{brand}"/>
+					<input type="text" class="form-control" placeholder="ブランド名を入力" th:field="*{brand}"/>
 				</div>
 				<div class="form-group"></div>
 				<button type="submit" class="btn btn-default">
-					<i class="fa fa-angle-double-right"></i> search
+					<i class="fa fa-angle-double-right"></i> 検索
 				</button>
 			</form>
 		</div>
