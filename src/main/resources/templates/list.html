@@ -111,7 +111,7 @@
 				</thead>
 				<tbody>
 					<tr th:each="item : ${itemList}">
-						<td class="item-name"><a th:text="${item.name}" href="./detail.html" th:href="@{'/showItemDetail?id=' + ${item.id}}">Razer BlackWidow Chroma Keyboard</a></td>
+						<td class="item-name"><a th:text="${item.name}" href="./detail.html" th:href="@{/showItemDetail(id=${item.id}, pageNumber=${pageNumber}, searchItemName=${searchItemName})}">Razer BlackWidow Chroma Keyboard</a></td>
 						<td class="item-price" th:text="${item.price}">52.0</td>
 						<td class="item-category"><a th:text="${item.category.nameAll}" href="">Electronics</a> / <a href="">Computers &amp; Tablets</a> / <a href="">Components &amp; Parts</a></td>
 						<td class="item-brand"><a th:text="${item.brandName}" href="">Razer</a></td>
@@ -129,8 +129,8 @@
 				</ul>
 			</nav>
 <!-- ページ番号を指定して表示するフォーム -->
-			<div id="select-page">
-				<form method="post" th:action="@{/(searchItemName=${searchItemName})}" class="form-inline" th:object="${displayItemListForm}">
+			<div id="select-page" align="center">
+				<form method="post" th:action="@{/(searchItemName=${searchItemName})}" class="form-inline" th:object="${displayItemListForm}" align="center">
 					<div class="form-group">
 						<div class="input-group col-xs-6">
 							<label></label> <input type="text" class="form-control" name="pageNumber" th:field="*{pageNumber}"/>
