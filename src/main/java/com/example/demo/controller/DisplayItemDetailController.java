@@ -20,11 +20,12 @@ public class DisplayItemDetailController {
 	private DisplayItemDetailService displayItemDetailService;
 	
 	@RequestMapping("/showItemDetail")
-	public String showDetail(Model model, Integer id, Integer pageNumber, String searchItemName) {
+	public String showDetail(Model model, Integer id, Integer pageNumber, String searchItemName, String searchBrandName) {
 		Item itemDetail = displayItemDetailService.showDetail(id);
 		model.addAttribute("itemDetail", itemDetail);
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("searchItemName", searchItemName);
+		model.addAttribute("searchBrandName", searchBrandName);
 		return "detail";
 	}
 

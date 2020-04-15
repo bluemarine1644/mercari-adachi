@@ -38,14 +38,19 @@ public class DisplayItemListController {
 	}
 
 	@RequestMapping("/")
-	public String showList(DisplayItemListForm form, Model model, String searchItemName, Integer pageNumber) {
+	public String showList(DisplayItemListForm form, Model model, String searchItemName, String searchBrandName, Integer pageNumber) {
 		model.addAttribute("VIEW_SIZE", VIEW_SIZE);
 		model.addAttribute("CHANGE_PAGE", CHANGE_PAGE);
-		// 検索文字列が空なら全件検索
+		// 商品名検索文字列が空なら全件検索
 		if (searchItemName == null) {
 			searchItemName = "";
 		}
 		model.addAttribute("searchItemName", searchItemName);
+		// ブランド名検索文字列が空なら全件検索
+		if (searchBrandName == null) {
+			searchBrandName = "";
+		}
+		model.addAttribute("searchBrandName", searchBrandName);
 		// ページ指定がない場合は初期値
 		if (pageNumber == null) {
 			pageNumber = 1;
@@ -57,7 +62,7 @@ public class DisplayItemListController {
 		Integer quantityOfItemList = displayItemListService.quantityOfItemList(searchItemName);
 		model.addAttribute("quantityOfItemList", quantityOfItemList);
 		 // 検索文字列があれば曖昧検索
-		List<Item> itemList = displayItemListService.serchByItemName(searchItemName, VIEW_SIZE, offsetValue);
+		List<Item> itemList = displayItemListService.serchByItemAndBrandName(searchItemName, searchBrandName, VIEW_SIZE, offsetValue);
 		model.addAttribute("itemList", itemList);
 		return "list";
 	}

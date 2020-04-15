@@ -29,8 +29,8 @@ public class DisplayItemListService {
 	 * @param offsetValue    オフセット値
 	 * @return 検索された商品情報
 	 */
-	public List<Item> serchByItemName(String searchItemName, Integer VIEW_SIZE, Integer offsetValue) {
-		return itemRepository.searchByItemName(searchItemName, VIEW_SIZE, offsetValue);
+	public List<Item> serchByItemAndBrandName(String searchItemName, String searchBrandName, Integer VIEW_SIZE, Integer offsetValue) {
+		return itemRepository.searchByItemAndBrandName(searchItemName, searchBrandName, VIEW_SIZE, offsetValue);
 	}
 
 	/**

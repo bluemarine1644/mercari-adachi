@@ -16,7 +16,7 @@ public class DisplayItemListForm {
 	/** 小カテゴリ */
 	private String grandChild;
 	/** ブランド */
-	private String brand;
+	private String searchBrandName;
 	/** ページ番号 */
 	private Integer pageNumber;
 
@@ -52,12 +52,12 @@ public class DisplayItemListForm {
 		this.grandChild = grandChild;
 	}
 
-	public String getBrand() {
-		return brand;
+	public String getSearchBrandName() {
+		return searchBrandName;
 	}
 
-	public void setBrand(String brand) {
-		this.brand = brand;
+	public void setSearchBrandName(String searchBrandName) {
+		this.searchBrandName = searchBrandName;
 	}
 
 	public Integer getPageNumber() {
@@ -70,6 +70,6 @@ public class DisplayItemListForm {
 
 	@Override
 	public String toString() {
-		return "DisplayItemListForm [searchItemName=" + searchItemName + ", parentCategory=" + parentCategory + ", childCategory=" + childCategory + ", grandChild=" + grandChild + ", brand=" + brand + ", pageNumber=" + pageNumber + "]";
+		return "DisplayItemListForm [searchItemName=" + searchItemName + ", parentCategory=" + parentCategory + ", childCategory=" + childCategory + ", grandChild=" + grandChild + ", searchBrandName=" + searchBrandName + ", pageNumber=" + pageNumber + "]";
 	}
 }

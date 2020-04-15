@@ -81,7 +81,7 @@
 					<i class="fa fa-plus"></i>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="ブランド名を入力" th:field="*{brand}"/>
+					<input type="search" name="searchBrandName" placeholder="ブランド名を入力" id="brand" class="form-control" th:field="*{searchBrandName}"/>
 				</div>
 				<div class="form-group"></div>
 				<button type="submit" class="btn btn-default">
@@ -93,8 +93,8 @@
 		<div class="pages">
 			<nav class="page-nav">
 				<ul class="pager">
-					<li class="previous"><a href="#" th:if="${offsetValue >= VIEW_SIZE}" th:href="@{/(pageNumber=${pageNumber - CHANGE_PAGE}, searchItemName=${searchItemName})}">&larr; prev</a></li>
-					<li class="next"><a href="#" th:if="${offsetValue <= quantityOfItemList - VIEW_SIZE}" th:href="@{/(pageNumber=${pageNumber + CHANGE_PAGE}, searchItemName=${searchItemName})}">next &rarr;</a></li>
+					<li class="previous"><a href="#" th:if="${offsetValue >= VIEW_SIZE}" th:href="@{/(pageNumber=${pageNumber - CHANGE_PAGE}, searchItemName=${searchItemName}, searchBrandName=${searchBrandName})}">&larr; prev</a></li>
+					<li class="next"><a href="#" th:if="${offsetValue <= quantityOfItemList - VIEW_SIZE}" th:href="@{/(pageNumber=${pageNumber + CHANGE_PAGE}, searchItemName=${searchItemName}, searchBrandName=${searchBrandName})}">next &rarr;</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -112,7 +112,7 @@
 				</thead>
 				<tbody>
 					<tr th:each="item : ${itemList}">
-						<td class="item-name"><a th:text="${item.name}" href="./detail.html" th:href="@{/showItemDetail(id=${item.id}, pageNumber=${pageNumber}, searchItemName=${searchItemName})}">Razer BlackWidow Chroma Keyboard</a></td>
+						<td class="item-name"><a th:text="${item.name}" href="./detail.html" th:href="@{/showItemDetail(id=${item.id}, pageNumber=${pageNumber}, searchItemName=${searchItemName}, searchBrandName=${searchBrandName})}">Razer BlackWidow Chroma Keyboard</a></td>
 						<td class="item-price" th:text="${item.price}">52.0</td>
 						<td class="item-category"><a th:text="${item.category.nameAll}" href="">Electronics</a> / <a href="">Computers &amp; Tablets</a> / <a href="">Components &amp; Parts</a></td>
 						<td class="item-brand"><a th:text="${item.brandName}" href="">Razer</a></td>
@@ -125,13 +125,13 @@
 		<div class="pages">
 			<nav class="page-nav">
 				<ul class="pager">
-					<li class="previous"><a href="#" th:if="${offsetValue >= VIEW_SIZE}" th:href="@{/(pageNumber=${pageNumber - CHANGE_PAGE}, searchItemName=${searchItemName})}">&larr; prev</a></li>
-					<li class="next"><a href="#" th:if="${offsetValue <= quantityOfItemList - VIEW_SIZE}" th:href="@{/(pageNumber=${pageNumber + CHANGE_PAGE}, searchItemName=${searchItemName})}">next &rarr;</a></li>
+					<li class="previous"><a href="#" th:if="${offsetValue >= VIEW_SIZE}" th:href="@{/(pageNumber=${pageNumber - CHANGE_PAGE}, searchItemName=${searchItemName}, searchBrandName=${searchBrandName})}">&larr; prev</a></li>
+					<li class="next"><a href="#" th:if="${offsetValue <= quantityOfItemList - VIEW_SIZE}" th:href="@{/(pageNumber=${pageNumber + CHANGE_PAGE}, searchItemName=${searchItemName}, searchBrandName=${searchBrandName})}">next &rarr;</a></li>
 				</ul>
 			</nav>
 <!-- ページ番号を指定して表示するフォーム -->
 			<div id="select-page" align="center">
-				<form method="post" th:action="@{/(searchItemName=${searchItemName})}" class="form-inline" th:object="${displayItemListForm}" align="center">
+				<form method="post" th:action="@{/(searchItemName=${searchItemName}, searchBrandName=${searchBrandName})}" class="form-inline" th:object="${displayItemListForm}" align="center">
 					<div class="form-group">
 						<div class="input-group col-xs-6">
 							<label></label> <input type="text" class="form-control" name="pageNumber" th:field="*{pageNumber}"/>

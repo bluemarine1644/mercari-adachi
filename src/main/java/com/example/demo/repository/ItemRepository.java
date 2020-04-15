@@ -54,9 +54,9 @@ public class ItemRepository {
 	 * @param offsetValue    オフセット値
 	 * @return 検索された商品情報
 	 */
-	public List<Item> searchByItemName(String searchItemName, Integer VIEW_SIZE, Integer offsetValue) {
-		String searchByItemNameSql = " WHERE i.name LIKE :searchItemName ORDER BY i.name LIMIT :VIEW_SIZE OFFSET :offsetValue";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("searchItemName", "%" + searchItemName + "%").addValue("VIEW_SIZE", VIEW_SIZE).addValue("offsetValue", offsetValue);
+	public List<Item> searchByItemAndBrandName(String searchItemName, String searchBrandName, Integer VIEW_SIZE, Integer offsetValue) {
+		String searchByItemNameSql = " WHERE i.name LIKE :searchItemName AND i.brand_name LIKE :searchBrandName ORDER BY i.name LIMIT :VIEW_SIZE OFFSET :offsetValue";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("searchItemName", "%" + searchItemName + "%").addValue("searchBrandName", "%" + searchBrandName + "%").addValue("VIEW_SIZE", VIEW_SIZE).addValue("offsetValue", offsetValue);
 		List<Item> itemList = template.query(SQL + searchByItemNameSql, param, ITEM_ROW_MAPPER);
 		return itemList;
 	}
