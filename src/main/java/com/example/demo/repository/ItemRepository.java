@@ -70,7 +70,10 @@ public class ItemRepository {
 	 * @return 商品数
 	 */
 	public Integer quantityOfItemList(String searchItemName, String searchBrandName) {
-		String quantityOfItemListSql = "SELECT COUNT(id) FROM items WHERE name LIKE :searchItemName AND brand_name LIKE :searchBrandName";
+		String quantityOfItemListSql = "SELECT COUNT(id) FROM items WHERE name LIKE :searchItemName";
+		if (searchBrandName != "") {
+			quantityOfItemListSql += " AND brand_name LIKE :searchBrandName";			
+		}
 		SqlParameterSource param = new MapSqlParameterSource().addValue("searchItemName", "%" + searchItemName + "%").addValue("searchBrandName", "%" + searchBrandName + "%");
 		Integer quantityOfItemList = template.queryForObject(quantityOfItemListSql, param, Integer.class);
 		return quantityOfItemList;
