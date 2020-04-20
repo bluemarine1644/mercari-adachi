@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.domain.Item;
+import com.example.demo.domain.ParentCategory;
 import com.example.demo.form.DisplayItemListForm;
 import com.example.demo.service.DisplayItemListService;
 
@@ -39,7 +40,9 @@ public class DisplayItemListController {
 
 	@RequestMapping("/")
 	public String showList(DisplayItemListForm form, Model model, String searchItemName, String searchBrandName, Integer pageNumber) {
-		System.out.println("searchItemName:[" + searchItemName + "]searchBrandName:[" + searchBrandName + "]pageNumber:[" + pageNumber + "]");
+//		System.out.println("searchBrandName: " + searchBrandName);
+//		System.err.println("searchBrandName: " + searchBrandName);
+//		System.out.println("pageNumber: " + pageNumber);
 		model.addAttribute("VIEW_SIZE", VIEW_SIZE);
 		model.addAttribute("CHANGE_PAGE", CHANGE_PAGE);
 		// 商品名検索文字列が空なら全件検索
@@ -65,7 +68,10 @@ public class DisplayItemListController {
 		 // 検索文字列があれば曖昧検索
 		List<Item> itemList = displayItemListService.serchByItemAndBrandName(searchItemName, searchBrandName, VIEW_SIZE, offsetValue);
 		model.addAttribute("itemList", itemList);
-		System.out.println(model);
+//		System.out.println("itemList: " + itemList);
+		List<ParentCategory> parentCategorieList = displayItemListService.findAll();
+		model.addAttribute("parentCategorieList", parentCategorieList);
+		System.out.println("parentCategorieList: " + parentCategorieList);
 		return "list";
 	}
 }

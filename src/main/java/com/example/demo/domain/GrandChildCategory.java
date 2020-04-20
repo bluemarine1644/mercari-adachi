@@ -1,12 +1,12 @@
 package com.example.demo.domain;
 
 /**
- * カテゴリ情報を表すドメイン.
+ * 孫カテゴリ情報を表すドメイン.
  * 
  * @author sota_adachi
  *
  */
-public class Category {
+public class GrandChildCategory {
 	/** カテゴリID */
 	private Integer id;
 	/** カテゴリ名前 */
@@ -50,6 +50,6 @@ public class Category {
 
 	@Override
 	public String toString() {
-		return "Category [id=" + id + ", name=" + name + ", parentId=" + parentId + ", nameAll=" + nameAll + "]";
+		return "GrandChildCategory [id=" + id + ", name=" + name + ", parentId=" + parentId + ", nameAll=" + nameAll + "]";
 	}
 }

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.Item;
+import com.example.demo.domain.ParentCategory;
+import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.ItemRepository;
 
 /**
@@ -20,6 +22,8 @@ import com.example.demo.repository.ItemRepository;
 public class DisplayItemListService {
 	@Autowired
 	private ItemRepository itemRepository;
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	/**
 	 * 商品名から商品を（曖昧）検索します.
@@ -42,5 +46,14 @@ public class DisplayItemListService {
 	 */
 	public Integer quantityOfItemList(String searchItemName, String searchBrandName) {
 		return itemRepository.quantityOfItemList(searchItemName, searchBrandName);
+	}
+	
+	/**
+	 * カテゴリー情報を取得します.
+	 * 
+	 * @return カテゴリー情報
+	 */
+	public List<ParentCategory> findAll() {
+		return categoryRepository.findAll();
 	}
 }

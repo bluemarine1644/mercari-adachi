@@ -38,7 +38,7 @@
 	<div id="main" class="container-fluid">
 <!-- addItem link -->
 		<div id="addItemButton" align="right">
-			<a class="btn btn-default" href="./add.html"><i class="fa fa-plus-square-o"></i> Add New Item</a>
+			<a class="btn btn-default" href="./add.html" th:href="@{/add}"><i class="fa fa-plus-square-o"></i> Add New Item</a>
 		</div>
 		<br>
 <!-- 検索フォーム -->
@@ -89,6 +89,21 @@
 				</button>
 			</form>
 		</div>
+<!-- ページ番号を指定して表示するフォーム -->
+			<div id="select-page" align="center">
+				<form method="post" th:action="@{/(searchItemName=${searchItemName}, searchBrandName=${searchBrandName})}" class="form-inline" th:object="${displayItemListForm}" align="center">
+					<div class="form-group">
+						<div class="input-group col-xs-6">
+							<label></label> <input type="search" placeholder="1" class="form-control" name="pageNumber" th:field="*{pageNumber}"/>
+<!-- 総ページ数 -->
+							<div class="input-group-addon" th:text="'/ ' + ${quantityOfItemList / VIEW_SIZE + CHANGE_PAGE}">/ 20</div>
+						</div>
+						<div class="input-group col-xs-1">
+							<button type="submit" class="btn btn-default">Go</button>
+						</div>
+					</div>
+				</form>
+			</div>
 <!-- pagination -->
 		<div class="pages">
 			<nav class="page-nav">
@@ -114,7 +129,7 @@
 					<tr th:each="item : ${itemList}">
 						<td class="item-name"><a th:text="${item.name}" href="./detail.html" th:href="@{/showItemDetail(id=${item.id}, pageNumber=${pageNumber}, searchItemName=${searchItemName}, searchBrandName=${searchBrandName})}">Razer BlackWidow Chroma Keyboard</a></td>
 						<td class="item-price" th:text="${item.price}">52.0</td>
-						<td class="item-category"><a th:text="${item.category.nameAll}" href="">Electronics</a> / <a href="">Computers &amp; Tablets</a> / <a href="">Components &amp; Parts</a></td>
+						<td class="item-category"><a th:text="${item.categoryId}" href="">Electronics</a> / <a href="">Computers &amp; Tablets</a> / <a href="">Components &amp; Parts</a></td>
 						<td class="item-brand"><a th:text="${item.brandName}" href="">Razer</a></td>
 						<td class="item-condition" th:text="${item.itemConditionId}">3</td>
 					</tr>
