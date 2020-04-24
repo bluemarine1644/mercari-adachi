@@ -44,7 +44,7 @@ public class ItemRepository {
 			item.setBrandName(rs.getString("brand_name"));
 			item.setPrice(rs.getInt("price"));
 			return item;
-		};		
+		};
 		String sql = "SELECT id, name, item_condition_id, category_id, brand_name, price FROM items WHERE name LIKE :searchItemName AND brand_name LIKE :searchBrandName ORDER BY name LIMIT :VIEW_SIZE OFFSET :offsetValue";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("searchItemName", "%" + searchItemName + "%").addValue("searchBrandName", "%" + searchBrandName + "%").addValue("VIEW_SIZE", VIEW_SIZE).addValue("offsetValue", offsetValue);
 		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);

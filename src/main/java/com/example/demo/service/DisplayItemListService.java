@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.Item;
-import com.example.demo.domain.ParentCategory;
+import com.example.demo.domain.Category;
 import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.ItemRepository;
 
@@ -40,20 +40,29 @@ public class DisplayItemListService {
 	/**
 	 * searchByItemNameメソッドで検索された商品数を返します.
 	 * 
-	 * @param searchItemName 検索商品名
+	 * @param searchItemName  検索商品名
 	 * @param searchBrandName 検索ブランド名
 	 * @return
 	 */
 	public Integer quantityOfItemList(String searchItemName, String searchBrandName) {
 		return itemRepository.quantityOfItemList(searchItemName, searchBrandName);
 	}
-	
+
 	/**
 	 * カテゴリー情報を取得します.
 	 * 
 	 * @return カテゴリー情報
 	 */
-	public List<ParentCategory> findAll() {
-		return categoryRepository.findAll();
+	public List<Category> findAllCategory() {
+		List<Category> bigCategoryList = categoryRepository.findCategoryByCategoryId(null);
+		for (Category bigCategory : bigCategoryList) {
+			List<Category> middleCategoryList = categoryRepository.findCategoryByCategoryId(bigCategory.getId());
+			bigCategory.setChildCategoryList(middleCategoryList);
+			for (Category middleCategory : middleCategoryList) {
+				List<Category> smallCategoryList = categoryRepository.findCategoryByCategoryId(middleCategory.getId());
+				middleCategory.setChildCategoryList(smallCategoryList);
+			}
+		}
+		return bigCategoryList;
 	}
 }

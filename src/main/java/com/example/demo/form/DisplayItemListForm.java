@@ -9,14 +9,16 @@ package com.example.demo.form;
 public class DisplayItemListForm {
 	/** 検索商品名 */
 	private String searchItemName;
-	/** 大カテゴリ */
-	private String parentCategory;
-	/** 中カテゴリ */
-	private String childCategory;
-	/** 小カテゴリ */
-	private String grandChild;
+	/** 親カテゴリID */
+	private Integer bigCategoryId;
+	/** 子カテゴリID */
+	private Integer middleCategoryId;
+	/** 孫カテゴリID */
+	private Integer smallChildCategoryId;
 	/** ブランド */
 	private String searchBrandName;
+	/** カテゴリ名 */
+	private String searchCategoryName;
 	/** ページ番号 */
 	private Integer pageNumber;
 
@@ -28,28 +30,28 @@ public class DisplayItemListForm {
 		this.searchItemName = searchItemName;
 	}
 
-	public String getParentCategory() {
-		return parentCategory;
+	public Integer getBigCategoryId() {
+		return bigCategoryId;
 	}
 
-	public void setParentCategory(String parentCategory) {
-		this.parentCategory = parentCategory;
+	public void setBigCategoryId(Integer bigCategoryId) {
+		this.bigCategoryId = bigCategoryId;
 	}
 
-	public String getChildCategory() {
-		return childCategory;
+	public Integer getMiddleCategoryId() {
+		return middleCategoryId;
 	}
 
-	public void setChildCategory(String childCategory) {
-		this.childCategory = childCategory;
+	public void setMiddleCategoryId(Integer middleCategoryId) {
+		this.middleCategoryId = middleCategoryId;
 	}
 
-	public String getGrandChild() {
-		return grandChild;
+	public Integer getSmallChildCategoryId() {
+		return smallChildCategoryId;
 	}
 
-	public void setGrandChild(String grandChild) {
-		this.grandChild = grandChild;
+	public void setSmallChildCategoryId(Integer smallChildCategoryId) {
+		this.smallChildCategoryId = smallChildCategoryId;
 	}
 
 	public String getSearchBrandName() {
@@ -58,6 +60,14 @@ public class DisplayItemListForm {
 
 	public void setSearchBrandName(String searchBrandName) {
 		this.searchBrandName = searchBrandName;
+	}
+
+	public String getSearchCategoryName() {
+		return searchCategoryName;
+	}
+
+	public void setSearchCategoryName(String searchCategoryName) {
+		this.searchCategoryName = searchCategoryName;
 	}
 
 	public Integer getPageNumber() {
@@ -70,6 +80,6 @@ public class DisplayItemListForm {
 
 	@Override
 	public String toString() {
-		return "DisplayItemListForm [searchItemName=" + searchItemName + ", parentCategory=" + parentCategory + ", childCategory=" + childCategory + ", grandChild=" + grandChild + ", searchBrandName=" + searchBrandName + ", pageNumber=" + pageNumber + "]";
+		return "DisplayItemListForm [searchItemName=" + searchItemName + ", bigCategoryId=" + bigCategoryId + ", middleCategoryId=" + middleCategoryId + ", smallChildCategoryId=" + smallChildCategoryId + ", searchBrandName=" + searchBrandName + ", searchCategoryName=" + searchCategoryName + ", pageNumber=" + pageNumber + "]";
 	}
 }

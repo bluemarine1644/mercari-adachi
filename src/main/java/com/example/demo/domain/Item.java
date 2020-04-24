@@ -16,7 +16,7 @@ public class Item {
 	/** カテゴリID */
 	private Integer categoryId;
 	/** カテゴリ */
-	private ParentCategory category;
+	private Category category;
 	/** ブランド名 */
 	private String brandName;
 	/** 価格 */
@@ -43,7 +43,7 @@ public class Item {
 	 * @param shipping 配送状況
 	 * @param itemDescription 商品説明
 	 */
-	public Item(Integer id, String name, Integer itemConditionId, Integer categoryId, ParentCategory category, String brandName, Integer price, Integer shipping, String itemDescription) {
+	public Item(Integer id, String name, Integer itemConditionId, Integer categoryId, Category category, String brandName, Integer price, Integer shipping, String itemDescription) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -88,11 +88,11 @@ public class Item {
 		this.categoryId = categoryId;
 	}
 
-	public ParentCategory getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(ParentCategory category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 

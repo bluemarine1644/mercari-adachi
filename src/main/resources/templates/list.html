@@ -7,10 +7,11 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
-<link rel="stylesheet" href="./mercari.css"/>
+<link rel="stylesheet" href="css/mercari.css"/>
 <!-- script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="js/list.js"></script>
 <title>ラクカリ</title>
 </head>
 <body>
@@ -51,31 +52,12 @@
 				<div class="form-group">
 					<i class="fa fa-plus"></i>
 				</div>
-				<div class="form-group">
-					<select class="form-control">
-						<option>- カテゴリ1 -</option>
-						<option>parentCategory1</option>
-						<option>parentCategory2</option>
-						<option>parentCategory3</option>
-						<option>parentCategory4</option>
-						<option>parentCategory5</option>
-					</select>
-					<select class="form-control">
-						<option>- カテゴリ2 -</option>
-						<option>childCategory1</option>
-						<option>childCategory2</option>
-						<option>childCategory3</option>
-						<option>childCategory4</option>
-						<option>childCategory5</option>
-					</select>
-					<select class="form-control">
-						<option>- カテゴリ3 -</option>
-						<option>grandChild1</option>
-						<option>grandChild2</option>
-						<option>grandChild3</option>
-						<option>grandChild4</option>
-						<option>grandChild5</option>
-					</select>
+ 				<div class="form-group">
+					<select id="bigSelect" class="form-control"></select><input type="hidden" th:field="*{bigCategoryId}">
+					<br>
+ 					<select id="middleSelect" class="form-control"></select><input type="hidden" th:field="*{middleCategoryId}">
+					<br>
+					<select id="smallSelect" class="form-control"></select><input type="hidden" id="*{smallCategoryId}">
 				</div>
 				<div class="form-group">
 					<i class="fa fa-plus"></i>

@@ -3,18 +3,18 @@ package com.example.demo.domain;
 import java.util.List;
 
 /**
- * 親カテゴリ情報を表すドメイン.
+ * カテゴリ情報を表すドメイン.
  * 
  * @author sota_adachi
  *
  */
-public class ParentCategory {
+public class Category {
 	/** カテゴリID */
 	private Integer id;
 	/** カテゴリ名前 */
 	private String name;
 	/** 子カテゴリリスト */
-	private List<ChildCategory> childCategoryList;
+	private List<Category> childCategoryList;
 
 	public Integer getId() {
 		return id;
@@ -32,16 +32,16 @@ public class ParentCategory {
 		this.name = name;
 	}
 
-	public List<ChildCategory> getChildCategoryList() {
+	public List<Category> getChildCategoryList() {
 		return childCategoryList;
 	}
 
-	public void setChildCategoryList(List<ChildCategory> childCategoryList) {
+	public void setChildCategoryList(List<Category> childCategoryList) {
 		this.childCategoryList = childCategoryList;
 	}
 
 	@Override
 	public String toString() {
-		return "ParentCategory [id=" + id + ", name=" + name + ", childCategoryList=" + childCategoryList + "]";
+		return "Category [id=" + id + ", name=" + name + ", childCategoryList=" + childCategoryList + "]";
 	}
 }
