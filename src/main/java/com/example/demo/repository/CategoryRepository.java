@@ -42,7 +42,6 @@ public class CategoryRepository {
 			param.addValue("categoryId", categoryId);
 		}
 		sql += " ORDER BY id";
-System.out.println(template.query(sql, param, ROW_MAPPER));
 		return template.query(sql, param, ROW_MAPPER);
 	}	
 }

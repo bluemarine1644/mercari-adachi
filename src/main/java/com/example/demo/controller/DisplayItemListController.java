@@ -42,21 +42,27 @@ public class DisplayItemListController {
 	}
 
 	@RequestMapping("/")
-	public String displayItemList(DisplayItemListForm form, Model model, String searchItemName, String searchBrandName, Integer pageNumber) {
-System.out.println("---displayItemList()---");
-//System.out.println("searchItemName:[" + searchItemName + "], pageNumber:[" + pageNumber + "]");
+	public String displayItemList(DisplayItemListForm form, Model model) {
+System.out.println(form.toString());
 		model.addAttribute("VIEW_SIZE", VIEW_SIZE);
 		model.addAttribute("CHANGE_PAGE", CHANGE_PAGE);
 		// 商品名検索文字列が空なら全件検索
+		String searchItemName = form.getSearchItemName();
 		if (searchItemName == null) {
 			searchItemName = "";
 		}
 		model.addAttribute("searchItemName", searchItemName);
+		String searchCategoryName = form.getSearchCategoryName();
+		if (searchCategoryName == null) {
+			searchCategoryName = "";
+		}
+		String searchBrandName = form.getSearchBrandName();
 		// ブランド名検索文字列が空なら全件検索
 		if (searchBrandName == null) {
 			searchBrandName = "";
 		}
 		model.addAttribute("searchBrandName", searchBrandName);
+		Integer pageNumber = form.getPageNumber();
 		// ページ指定がない場合は初期値
 		if (pageNumber == null) {
 			pageNumber = 1;
@@ -65,12 +71,11 @@ System.out.println("---displayItemList()---");
 		model.addAttribute("offsetValue", offsetValue);
 		model.addAttribute("pageNumber", pageNumber);
 		// 曖昧検索で検索された商品返す
-		Integer quantityOfItemList = displayItemListService.quantityOfItemList(searchItemName, searchBrandName);
+		Integer quantityOfItemList = displayItemListService.quantityOfItemList(searchItemName, searchCategoryName, searchBrandName);
 		model.addAttribute("quantityOfItemList", quantityOfItemList);
 		// 検索文字列があれば曖昧検索
-		List<Item> itemList = displayItemListService.serchByItemAndBrandName(searchItemName, searchBrandName, VIEW_SIZE, offsetValue);
+		List<Item> itemList = displayItemListService.searchItem(searchItemName, searchCategoryName, searchBrandName, VIEW_SIZE, offsetValue);
 		model.addAttribute("itemList", itemList);
-//System.out.println(itemList);
 		return "list";
 	}
 	
@@ -80,8 +85,6 @@ System.out.println("---displayItemList()---");
 	@RequestMapping("/categoryList")
 	@ResponseBody
 	public List<Category> CategoryList() {
-System.out.println("---CategoryList()---");
-System.out.println(getCategoryList().toString());
 		return getCategoryList();
 	}
 	
@@ -111,7 +114,7 @@ System.out.println(getCategoryList().toString());
 		// フォーム内にセットされているIDを全てクリアする
 		form.setBigCategoryId(null);
 		form.setMiddleCategoryId(null);
-		form.setSmallChildCategoryId(null);
+		form.setSmallCategoryId(null);
 		// 検索カテゴリ名がセットされている場合
 		if (form.getSearchCategoryName() != null) {
 			// 検索カテゴリ名を大・中・小に分離させてそれぞれ配列に格納する
@@ -130,7 +133,7 @@ System.out.println(getCategoryList().toString());
 					if (categoryArray.length >= 3) {
 						// 小カテゴリ名に対応したIDをフォームに格納する
 						Category smallCategory = getCategoryByName(middleCategory.getChildCategoryList(), categoryArray[2]);
-						form.setSmallChildCategoryId(smallCategory.getId());
+						form.setSmallCategoryId(smallCategory.getId());
 					}
 				}
 			}

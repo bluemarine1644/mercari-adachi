@@ -28,13 +28,15 @@ public class DisplayItemListService {
 	/**
 	 * 商品名から商品を（曖昧）検索します.
 	 * 
-	 * @param searchItemName 商品名
-	 * @param VIEW_SIZE      1ページに表示す商品数
-	 * @param offsetValue    オフセット値
+	 * @param searchItemName     商品名
+	 * @param searchCategoryName カテゴリ名
+	 * @param searchBrandName    ブランド名
+	 * @param VIEW_SIZE          1ページに表示す商品数
+	 * @param offsetValue        オフセット値
 	 * @return 検索された商品情報
 	 */
-	public List<Item> serchByItemAndBrandName(String searchItemName, String searchBrandName, Integer VIEW_SIZE, Integer offsetValue) {
-		return itemRepository.searchByItemAndBrandName(searchItemName, searchBrandName, VIEW_SIZE, offsetValue);
+	public List<Item> searchItem(String searchItemName, String searchCategoryName, String searchBrandName, Integer VIEW_SIZE, Integer offsetValue) {
+		return itemRepository.searchItem(searchItemName, searchCategoryName, searchBrandName, VIEW_SIZE, offsetValue);
 	}
 
 	/**
@@ -44,8 +46,8 @@ public class DisplayItemListService {
 	 * @param searchBrandName 検索ブランド名
 	 * @return
 	 */
-	public Integer quantityOfItemList(String searchItemName, String searchBrandName) {
-		return itemRepository.quantityOfItemList(searchItemName, searchBrandName);
+	public Integer quantityOfItemList(String searchItemName, String searchCategoryName,String searchBrandName) {
+		return itemRepository.quantityOfItemList(searchItemName, searchCategoryName, searchBrandName);
 	}
 
 	/**

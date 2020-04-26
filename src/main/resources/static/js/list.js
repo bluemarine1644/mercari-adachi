@@ -1,14 +1,3 @@
-// 全カテゴリ情報取得
-$(function() {
-	$.getJSON('./categoryList').done(function(jsonCategoryList) {
-		bigCategoryList = jsonCategoryList;
-		console.log('全カテゴリ情報取得bigCategoryList: ' + bigCategoryList);
-		createBigCategorySelect();
-	}).fail(function() {
-		console.log('失敗');
-	}).always(function() {	
-	});	
-
 var bigCategoryList;
 var selectedBigCategory;
 var middleCategoryList;
@@ -16,17 +5,17 @@ var selectedMiddleCategory;
 var smallCategoryList;
 // 大カテゴリーのプルダウン設定
 function createBigCategorySelect() {
-// 文字列を配列に格納
-var bigOptions = '<option value="">カテゴリを選択してください</option>';
-// 選択した大カテゴリIDに対応した商品にだけslected属性を付与
-for (let i = 0; i < bigCategoryList.length; i++) {
-	let bigCategory = bigCategoryList[i];
-	let selectedStr = $('#displayItemListForm [name=bigCategoryId]').val() == bigCategory.id ? ' selected' : '';
-	bigOptions += '<option value="' + bigCategory.id + '"' + selectedStr + '>' + bigCategory.name + '<option>';
-}
-// 文字配列を送る
-$('#bigCategory').html(bigOptions);
-createMiddleCategorySelect();
+	// 文字列を配列に格納
+	var bigOptions = '<option value="">カテゴリを選択してください</option>';
+	// 選択した大カテゴリIDに対応した商品にだけslected属性を付与
+	for (let i = 0; i < bigCategoryList.length; i++) {
+		let bigCategory = bigCategoryList[i];
+		let selectedStr = $('#displayItemListForm [name=bigCategoryId]').val() == bigCategory.id ? ' selected' : '';
+		bigOptions += '<option value="' + bigCategory.id + '"' + selectedStr + '>' + bigCategory.name + '</option>';
+	}
+	// 文字配列を送る
+	$('#bigSelect').html(bigOptions);
+	createMiddleCategorySelect();
 }
 // 中カテゴリのプルダウン生成
 function createMiddleCategorySelect() {
@@ -44,18 +33,18 @@ function createMiddleCategorySelect() {
 				// 選択された中カテゴリIDに対応した商品にだけselected属性を付与
 				for (let j = 0; j < middleCategoryList.length; j++) {
 					let middleCategory = middleCategoryList[j];
-					let selectedStr = $('#displaySearchForm [name=middleCategoryId]').val() == middleCategory.id ? ' selected' : '';
-					middleOptions += 'option value="' + middleCategory.id + '"' + selectedStr + '>' + middleCategory.name + '</option>';
+					let selectedStr = $('#displayItemListForm [name=middleCategoryId]').val() == middleCategory.id ? ' selected' : '';
+					middleOptions += '<option value="' + middleCategory.id + '"' + selectedStr + '>' + middleCategory.name + '</option>';
 				}
 				// 文字配列を送る
-				$('#middleCategory').html(middleOptions);
+				$('#middleSelect').html(middleOptions);
 			}
 		}
 		createSmallCategorySelect();
 	} else {
 		// カテゴリが選択されていなかった場合は初期値を送る
 		$('#middleSelect').html('');
-		$('#middleCategoryId').val();
+		$('#middleCategoryId').val('');
 		$('#smallSelect').html('');
 		$('#smallCategoryId').val('');
 	}
@@ -64,17 +53,15 @@ function createMiddleCategorySelect() {
 function createSmallCategorySelect() {
 	let selectedMiddleCategoryValue = $('#middleSelect option:selected').val();
 	if (selectedMiddleCategoryValue != '') {
-console.log('小カテゴリのプルダウン生成bigCategoryList: ' + bigCategoryList);
-console.log('小カテゴリのプルダウン生成middleCategoryList: ' + middleCategoryList);
 		for (let i = 0; i < middleCategoryList.length; i++) {
-			let middleCategory = middleCategory[i];
+			let middleCategory = middleCategoryList[i];
 			if (middleCategory.id == selectedMiddleCategoryValue) {
-				let middleCategory = middleCategory;
+				selectedMiddleCategory = middleCategory;
 				var smallOptions = '<option value="">カテゴリを選択してください</option>';
 				smallCategoryList = middleCategory.childCategoryList;
 				for (let j = 0; j < smallCategoryList.length; j++) {
 					let smallCategory = smallCategoryList[j];
-					let selectedStr = $('#displaySearchForm [name=smallCategoryId]').val() == smallCategory.id ? ' selected' : '';
+					let selectedStr = $('#displayItemListForm [name=smallCategoryId]').val() == smallCategory.id ? ' selected' : '';
 					smallOptions += '<option value="' + smallCategory.id + '"' + selectedStr + '>' + smallCategory.name + '</option>';
 				}
 				$('#smallSelect').html(smallOptions);
@@ -87,16 +74,47 @@ console.log('小カテゴリのプルダウン生成middleCategoryList: ' + midd
 }
 // カテゴリのプルダウンの選択文字を連結
 function createCategoryName() {
-	let categoryName = '';
+	let searchCategoryName = '';
 	if ($('#bigSelect option:selected') && $('#bigSelect option:selected').val() != '') {
-		categoryName += $('#bigCategory option:selected').text();
+		searchCategoryName += $('#bigCategory option:selected').text();
 		if ($('#middleSelect option:selected').val() != '') {
-			categoryName += $('#middleSelect option:selected').text();
+			searchCategoryName += $('#middleSelect option:selected').text();
 			if ($('#smallSelect option:selected').val() != '') {
-				categoryName += $('#smallSelect option:selected').text();
+				searchCategoryName += $('#smallSelect option:selected').text();
 			}
 		}
 	}
-	return categoryName;
+	return searchCategoryName;
 }
+$(function() {
+	$('#middleSelect').hide();
+	$('#smallSelect').hide();
+
+	// 大カテゴリープルダウン変更時のイベント処理設定
+	$('#bigSelect').on('change', function() {
+		createMiddleCategorySelect();
+		$('#middleSelect').show();
+		$('#smallSelect').hide();
+	});
+
+	// 中カテゴリープルダウン変更時のイベント処理設定
+	$('#middleSelect').on('change', function() {
+		createSmallCategorySelect();
+		$('#smallSelect').show();
+	});
+
+	// 検索ボタンクリック時のイベント処理設定
+	$('#button-search').on('click', function() {
+		$('#displayItemListForm [name=searchCategoryName]').val(createCategoryName());
+		$('#displayItemListForm').submit();
+	});
+
+	// 全カテゴリ情報取得
+	$.getJSON('./categoryList').done(function(jsonCategoryList) {
+		bigCategoryList = jsonCategoryList;
+		createBigCategorySelect();
+	}).fail(function() {
+		console.log('失敗');
+	}).always(function() {	
+	});	
 })

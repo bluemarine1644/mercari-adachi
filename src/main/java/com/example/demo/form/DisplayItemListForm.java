@@ -14,11 +14,11 @@ public class DisplayItemListForm {
 	/** 子カテゴリID */
 	private Integer middleCategoryId;
 	/** 孫カテゴリID */
-	private Integer smallChildCategoryId;
-	/** ブランド */
-	private String searchBrandName;
+	private Integer smallCategoryId;
 	/** カテゴリ名 */
 	private String searchCategoryName;
+	/** ブランド */
+	private String searchBrandName;
 	/** ページ番号 */
 	private Integer pageNumber;
 
@@ -46,20 +46,12 @@ public class DisplayItemListForm {
 		this.middleCategoryId = middleCategoryId;
 	}
 
-	public Integer getSmallChildCategoryId() {
-		return smallChildCategoryId;
+	public Integer getSmallCategoryId() {
+		return smallCategoryId;
 	}
 
-	public void setSmallChildCategoryId(Integer smallChildCategoryId) {
-		this.smallChildCategoryId = smallChildCategoryId;
-	}
-
-	public String getSearchBrandName() {
-		return searchBrandName;
-	}
-
-	public void setSearchBrandName(String searchBrandName) {
-		this.searchBrandName = searchBrandName;
+	public void setSmallCategoryId(Integer smallCategoryId) {
+		this.smallCategoryId = smallCategoryId;
 	}
 
 	public String getSearchCategoryName() {
@@ -68,6 +60,14 @@ public class DisplayItemListForm {
 
 	public void setSearchCategoryName(String searchCategoryName) {
 		this.searchCategoryName = searchCategoryName;
+	}
+
+	public String getSearchBrandName() {
+		return searchBrandName;
+	}
+
+	public void setSearchBrandName(String searchBrandName) {
+		this.searchBrandName = searchBrandName;
 	}
 
 	public Integer getPageNumber() {
@@ -80,6 +80,6 @@ public class DisplayItemListForm {
 
 	@Override
 	public String toString() {
-		return "DisplayItemListForm [searchItemName=" + searchItemName + ", bigCategoryId=" + bigCategoryId + ", middleCategoryId=" + middleCategoryId + ", smallChildCategoryId=" + smallChildCategoryId + ", searchBrandName=" + searchBrandName + ", searchCategoryName=" + searchCategoryName + ", pageNumber=" + pageNumber + "]";
+		return "DisplayItemListForm [searchItemName=" + searchItemName + ", bigCategoryId=" + bigCategoryId + ", middleCategoryId=" + middleCategoryId + ", smallCategoryId=" + smallCategoryId + ", searchCategoryName=" + searchCategoryName + ", searchBrandName=" + searchBrandName + ", pageNumber=" + pageNumber + "]";
 	}
 }

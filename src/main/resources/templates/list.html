@@ -50,14 +50,14 @@
 					<input type="search" name="searchItemName" placeholder="商品名を入力" id="name" class="form-control" th:field="*{searchItemName}"/>
 				</div>
 				<div class="form-group">
-					<i class="fa fa-plus"></i>
+					<i id="displayItemListForm" class="fa fa-plus"></i>
 				</div>
  				<div class="form-group">
 					<select id="bigSelect" class="form-control"></select><input type="hidden" th:field="*{bigCategoryId}">
 					<br>
  					<select id="middleSelect" class="form-control"></select><input type="hidden" th:field="*{middleCategoryId}">
 					<br>
-					<select id="smallSelect" class="form-control"></select><input type="hidden" id="*{smallCategoryId}">
+					<select id="smallSelect" class="form-control"></select><input type="hidden" th:field="*{smallCategoryId}">
 				</div>
 				<div class="form-group">
 					<i class="fa fa-plus"></i>
@@ -66,7 +66,7 @@
 					<input type="search" name="searchBrandName" placeholder="ブランド名を入力" id="brand" class="form-control" th:field="*{searchBrandName}"/>
 				</div>
 				<div class="form-group"></div>
-				<button type="submit" class="btn btn-default">
+				<button id="button-search" type="submit" class="btn btn-default">
 					<i class="fa fa-angle-double-right"></i> 検索
 				</button>
 			</form>
@@ -76,7 +76,7 @@
 				<form method="post" th:action="@{/(searchItemName=${searchItemName}, searchBrandName=${searchBrandName})}" class="form-inline" th:object="${displayItemListForm}" align="center">
 					<div class="form-group">
 						<div class="input-group col-xs-6">
-							<label></label> <input type="search" placeholder="1" class="form-control" name="pageNumber" th:field="*{pageNumber}"/>
+							<input type="search" placeholder="1" class="form-control" name="pageNumber" th:field="*{pageNumber}"/>
 <!-- 総ページ数 -->
 							<div class="input-group-addon" th:text="'/ ' + ${quantityOfItemList / VIEW_SIZE + CHANGE_PAGE}">/ 20</div>
 						</div>
@@ -111,7 +111,7 @@
 					<tr th:each="item : ${itemList}">
 						<td class="item-name"><a th:text="${item.name}" href="./detail.html" th:href="@{/showItemDetail(id=${item.id}, pageNumber=${pageNumber}, searchItemName=${searchItemName}, searchBrandName=${searchBrandName})}">Razer BlackWidow Chroma Keyboard</a></td>
 						<td class="item-price" th:text="${item.price}">52.0</td>
-						<td class="item-category"><a th:text="${item.categoryId}" href="">Electronics</a> / <a href="">Computers &amp; Tablets</a> / <a href="">Components &amp; Parts</a></td>
+						<td class="item-category"><a th:text="${item.category}" href="">Electronics</a> / <a href="">Computers &amp; Tablets</a> / <a href="">Components &amp; Parts</a></td>
 						<td class="item-brand"><a th:text="${item.brandName}" href="">Razer</a></td>
 						<td class="item-condition" th:text="${item.itemConditionId}">3</td>
 					</tr>

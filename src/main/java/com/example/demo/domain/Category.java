@@ -11,8 +11,10 @@ import java.util.List;
 public class Category {
 	/** カテゴリID */
 	private Integer id;
-	/** カテゴリ名前 */
+	/** カテゴリ名 */
 	private String name;
+	/** 全カテゴリ名 */
+	private String nameAll;
 	/** 子カテゴリリスト */
 	private List<Category> childCategoryList;
 
@@ -32,6 +34,14 @@ public class Category {
 		this.name = name;
 	}
 
+	public String getNameAll() {
+		return nameAll;
+	}
+
+	public void setNameAll(String nameAll) {
+		this.nameAll = nameAll;
+	}
+
 	public List<Category> getChildCategoryList() {
 		return childCategoryList;
 	}
@@ -42,6 +52,6 @@ public class Category {
 
 	@Override
 	public String toString() {
-		return "Category [id=" + id + ", name=" + name + ", childCategoryList=" + childCategoryList + "]";
+		return "Category [id=" + id + ", name=" + name + ", nameAll=" + nameAll + ", childCategoryList=" + childCategoryList + "]";
 	}
 }
