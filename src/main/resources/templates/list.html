@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -45,12 +45,12 @@
 <!-- 検索フォーム -->
 		<h1 align="center">何かお探しですか？</h1>
 		<div id="forms" align="center">
-			<form method="post" th:action="@{/}" class="form-inline" role="form" th:object="${displayItemListForm}">
+			<form id="displayItemListForm" method="post" th:action="@{/}" class="form-inline" role="form" th:object="${displayItemListForm}">
 				<div class="form-group">
 					<input type="search" name="searchItemName" placeholder="商品名を入力" id="name" class="form-control" th:field="*{searchItemName}"/>
 				</div>
 				<div class="form-group">
-					<i id="displayItemListForm" class="fa fa-plus"></i>
+					<i class="fa fa-plus"></i>
 				</div>
  				<div class="form-group">
 					<select id="bigSelect" class="form-control"></select><input type="hidden" th:field="*{bigCategoryId}">
@@ -60,7 +60,7 @@
 					<select id="smallSelect" class="form-control"></select><input type="hidden" th:field="*{smallCategoryId}">
 				</div>
 				<div class="form-group">
-					<i class="fa fa-plus"></i>
+					<i class="fa fa-plus"></i><input type="hidden" name="searchCategoryName">
 				</div>
 				<div class="form-group">
 					<input type="search" name="searchBrandName" placeholder="ブランド名を入力" id="brand" class="form-control" th:field="*{searchBrandName}"/>
@@ -72,7 +72,7 @@
 			</form>
 		</div>
 <!-- ページ番号を指定して表示するフォーム -->
-			<div id="select-page" align="center">
+			<div class="select-page" align="center">
 				<form method="post" th:action="@{/(searchItemName=${searchItemName}, searchBrandName=${searchBrandName})}" class="form-inline" th:object="${displayItemListForm}" align="center">
 					<div class="form-group">
 						<div class="input-group col-xs-6">
@@ -111,7 +111,13 @@
 					<tr th:each="item : ${itemList}">
 						<td class="item-name"><a th:text="${item.name}" href="./detail.html" th:href="@{/showItemDetail(id=${item.id}, pageNumber=${pageNumber}, searchItemName=${searchItemName}, searchBrandName=${searchBrandName})}">Razer BlackWidow Chroma Keyboard</a></td>
 						<td class="item-price" th:text="${item.price}">52.0</td>
-						<td class="item-category"><a th:text="${item.category}" href="">Electronics</a> / <a href="">Computers &amp; Tablets</a> / <a href="">Components &amp; Parts</a></td>
+						<td class="item-category">
+							<div th:if="${item.category.nameAll}">
+							<a class="categoryLink" th:data-category="${item.bigCategoryName}" th:text="${item.bigCategoryName}">Electronics</a> /
+							<a class="categoryLink" th:data-category="${item.bigCategoryName} + '/' + ${item.middleCategoryName}" th:text="${item.middleCategoryName}">Computers &amp; Tablets</a> /
+							<a class="categoryLink" th:data-category="${item.bigCategoryName} + '/' + ${item.middleCategoryName} + '/' + ${item.smallCategoryName}" th:text="${item.smallCategoryName}">Components &amp; Parts</a>
+							</div>
+						</td>
 						<td class="item-brand"><a th:text="${item.brandName}" href="">Razer</a></td>
 						<td class="item-condition" th:text="${item.itemConditionId}">3</td>
 					</tr>
@@ -127,7 +133,7 @@
 				</ul>
 			</nav>
 <!-- ページ番号を指定して表示するフォーム -->
-			<div id="select-page" align="center">
+			<div class="select-page" align="center">
 				<form method="post" th:action="@{/(searchItemName=${searchItemName}, searchBrandName=${searchBrandName})}" class="form-inline" th:object="${displayItemListForm}" align="center">
 					<div class="form-group">
 						<div class="input-group col-xs-6">

@@ -76,31 +76,25 @@ function createSmallCategorySelect() {
 function createCategoryName() {
 	let searchCategoryName = '';
 	if ($('#bigSelect option:selected') && $('#bigSelect option:selected').val() != '') {
-		searchCategoryName += $('#bigCategory option:selected').text();
+		searchCategoryName += $('#bigSelect option:selected').text();
 		if ($('#middleSelect option:selected').val() != '') {
-			searchCategoryName += $('#middleSelect option:selected').text();
+			searchCategoryName += '/' + $('#middleSelect option:selected').text();
 			if ($('#smallSelect option:selected').val() != '') {
-				searchCategoryName += $('#smallSelect option:selected').text();
+				searchCategoryName += '/' + $('#smallSelect option:selected').text();
 			}
 		}
 	}
 	return searchCategoryName;
 }
 $(function() {
-	$('#middleSelect').hide();
-	$('#smallSelect').hide();
-
 	// 大カテゴリープルダウン変更時のイベント処理設定
 	$('#bigSelect').on('change', function() {
 		createMiddleCategorySelect();
-		$('#middleSelect').show();
-		$('#smallSelect').hide();
 	});
 
 	// 中カテゴリープルダウン変更時のイベント処理設定
 	$('#middleSelect').on('change', function() {
 		createSmallCategorySelect();
-		$('#smallSelect').show();
 	});
 
 	// 検索ボタンクリック時のイベント処理設定
@@ -108,6 +102,12 @@ $(function() {
 		$('#displayItemListForm [name=searchCategoryName]').val(createCategoryName());
 		$('#displayItemListForm').submit();
 	});
+
+	// カテゴリーリンククリック時のイベント処理設定
+	$('.categoryLink').on('click', function() {
+	    $('#displayItemListForm [name=searchCategoryName]').val($(this).data('category'));
+	    $('#displayItemListForm').submit();
+	}
 
 	// 全カテゴリ情報取得
 	$.getJSON('./categoryList').done(function(jsonCategoryList) {

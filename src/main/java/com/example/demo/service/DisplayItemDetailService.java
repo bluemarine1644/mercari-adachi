@@ -9,25 +9,24 @@ import com.example.demo.repository.ItemRepository;
 
 /**
  * 商品詳細情報を操作するサービス.
- * 
- * @author sota_adachi
  *
+ * @author sota_adachi
  */
 @Service
 @Transactional
 public class DisplayItemDetailService {
-	@Autowired
-	private ItemRepository itemRepository;
+    @Autowired
+    private ItemRepository itemRepository;
 
-	/**
-	 * 商品IDから商品詳細情報を取得します.
-	 * 
-	 * @param id 商品ID
-	 * @return 商品詳細情報
-	 */
-	public Item showDetail(Integer id) {
-		Item itemDetail = itemRepository.findById(id);
-		return itemDetail;
-	}
+    /**
+     * 商品IDから商品詳細情報を取得します.
+     *
+     * @param id 商品ID
+     * @return 商品詳細情報
+     */
+    public Item showDetail(Integer id) {
+        Item itemDetail = itemRepository.findById(id);
+        return itemDetail;
+    }
 
 }

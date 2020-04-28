@@ -43,7 +43,6 @@ public class DisplayItemListController {
 
 	@RequestMapping("/")
 	public String displayItemList(DisplayItemListForm form, Model model) {
-System.out.println(form.toString());
 		model.addAttribute("VIEW_SIZE", VIEW_SIZE);
 		model.addAttribute("CHANGE_PAGE", CHANGE_PAGE);
 		// 商品名検索文字列が空なら全件検索
@@ -52,6 +51,9 @@ System.out.println(form.toString());
 			searchItemName = "";
 		}
 		model.addAttribute("searchItemName", searchItemName);
+		// 検索カテゴリIDをフォームにセット
+		setCategoryId(form, getCategoryList());
+		// カテゴリ名検索文字列が空なら全件検索
 		String searchCategoryName = form.getSearchCategoryName();
 		if (searchCategoryName == null) {
 			searchCategoryName = "";
@@ -75,10 +77,12 @@ System.out.println(form.toString());
 		model.addAttribute("quantityOfItemList", quantityOfItemList);
 		// 検索文字列があれば曖昧検索
 		List<Item> itemList = displayItemListService.searchItem(searchItemName, searchCategoryName, searchBrandName, VIEW_SIZE, offsetValue);
+		System.out.println("itemList: " + itemList);
 		model.addAttribute("itemList", itemList);
+		System.out.println(model);
 		return "list";
 	}
-	
+
 	@Autowired
 	private HttpSession session;
 	
@@ -103,35 +107,25 @@ System.out.println(form.toString());
 		}
 		return categoryList;
 	}
-	
-	/**
-	 * 検索完了時、カテゴリのプルダウンを維持するために、検索カテゴリ名から大、中、小カテゴリIDを求めてフォームにセットする.
-	 * 
-	 * @param form フォーム
-	 * @param categoryList カテゴリ情報
-	 */
-	public void setCategoryId(DisplayItemListForm form, List<Category> categoryList) {
-		// フォーム内にセットされているIDを全てクリアする
+
+	private void setCategoryId(DisplayItemListForm form, List<Category> categoryList) {
+		// 一旦全てクリアする
 		form.setBigCategoryId(null);
 		form.setMiddleCategoryId(null);
 		form.setSmallCategoryId(null);
-		// 検索カテゴリ名がセットされている場合
+		// カテゴリ検索が行われた場合、検索されたカテゴリ名を分解し配列に格納する
 		if (form.getSearchCategoryName() != null) {
-			// 検索カテゴリ名を大・中・小に分離させてそれぞれ配列に格納する
 			String[] categoryArray = form.getSearchCategoryName().split("/");
-			// 初期値以外の大カテゴリが選択されている場合
+			// 大カテゴリが選択されている場合そのカテゴリIDをフォームにセットする
 			if (categoryArray.length >= 1 && !"".equals(categoryArray[0])) {
-				// 大カテゴリ名に対応したIDをフォームに格納する
 				Category bigCategory = getCategoryByName(categoryList, categoryArray[0]);
 				form.setBigCategoryId(bigCategory.getId());
-				// 中カテゴリまで選択されている場合
+				// 中カテゴリが選択されている場合そのカテゴリIDをフォームにセットする
 				if (categoryArray.length >= 2) {
-					// 中カテゴリ名に対応したIDをフォームに格納する
 					Category middleCategory = getCategoryByName(bigCategory.getChildCategoryList(), categoryArray[1]);
 					form.setMiddleCategoryId(middleCategory.getId());
-					// 小カテゴリまで選択されている場合
+					// 小カテゴリが選択されている場合そのカテゴリIDをフォームにセットする
 					if (categoryArray.length >= 3) {
-						// 小カテゴリ名に対応したIDをフォームに格納する
 						Category smallCategory = getCategoryByName(middleCategory.getChildCategoryList(), categoryArray[2]);
 						form.setSmallCategoryId(smallCategory.getId());
 					}
@@ -139,10 +133,10 @@ System.out.println(form.toString());
 			}
 		}
 	}
-	
+
 	/**
 	 * カテゴリ名からカテゴリ情報を取得する.
-	 * 
+	 *
 	 * @param categoryList カテゴリ情報リスト
 	 * @param categoryName カテゴリ名
 	 * @return カテゴリ情報
